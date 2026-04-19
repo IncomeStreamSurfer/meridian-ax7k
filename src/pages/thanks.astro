@@ -1,0 +1,119 @@
+---
+import Base from '../layouts/Base.astro';
+
+const siteUrl = Astro.site?.toString() || 'https://meridian-ax7k.vercel.app';
+
+const webPageLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: "You're In | Meridian Coffee Waitlist",
+  url: `${siteUrl}thanks`,
+  description: "Thanks for joining the Meridian waitlist. We'll be in touch before launch with early access and tasting notes.",
+  isPartOf: {
+    '@type': 'WebSite',
+    name: 'Meridian',
+    url: siteUrl,
+  },
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl },
+    { '@type': 'ListItem', position: 2, name: 'Waitlist Confirmed', item: `${siteUrl}thanks` },
+  ],
+};
+
+const shareText = encodeURIComponent("I just joined the Meridian coffee waitlist — specialty single-origin coffee, coming soon:");
+const shareUrl = encodeURIComponent(siteUrl);
+---
+
+<Base
+  title="You're In | Meridian Coffee Waitlist"
+  description="Thanks for joining the Meridian waitlist. We'll be in touch before launch with early access, tasting notes, and something special."
+  structuredData={[webPageLd, breadcrumbLd]}
+  noindex={true}
+>
+
+  <section class="relative grain overflow-hidden">
+    <div class="absolute inset-0 -z-10 pointer-events-none">
+      <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[40rem] h-[40rem] rounded-full blur-3xl opacity-30" style="background: radial-gradient(closest-side, var(--color-amber), transparent 70%);"></div>
+    </div>
+
+    <div class="mx-auto max-w-3xl px-6 lg:px-10 pt-20 pb-32 text-center">
+      <div class="inline-flex items-center gap-2 rule border rounded-full px-4 py-1.5 mb-10 text-xs uppercase tracking-[0.25em]">
+        <span class="w-1.5 h-1.5 rounded-full bg-[color:var(--color-amber)]"></span>
+        <span class="muted">Waitlist confirmed</span>
+      </div>
+
+      <h1 class="font-display text-5xl lg:text-7xl leading-[0.98] tracking-tight">
+        You're on the list —
+        <span class="italic text-[color:var(--color-amber)]">welcome</span> to Meridian.
+      </h1>
+
+      <p class="mt-8 text-lg leading-relaxed muted max-w-xl mx-auto">
+        A small thing, quietly done: your seat is saved. We'll send one note before launch with early access to our inaugural lots, tasting impressions from the roaster, and — if the post plays along — something small and cream-coloured in the mail.
+      </p>
+
+      <div class="mt-12 grid sm:grid-cols-3 gap-4 text-left">
+        <div class="surface rule border rounded-xl p-5">
+          <p class="font-display text-3xl text-[color:var(--color-amber)]">01</p>
+          <p class="mt-2 font-medium">Check your inbox.</p>
+          <p class="muted text-sm mt-1">A confirmation email is on its way. If it's shy, peek in spam.</p>
+        </div>
+        <div class="surface rule border rounded-xl p-5">
+          <p class="font-display text-3xl text-[color:var(--color-amber)]">02</p>
+          <p class="mt-2 font-medium">Sit tight, pour something.</p>
+          <p class="muted text-sm mt-1">The next note from us arrives the week we open.</p>
+        </div>
+        <div class="surface rule border rounded-xl p-5">
+          <p class="font-display text-3xl text-[color:var(--color-amber)]">03</p>
+          <p class="mt-2 font-medium">Early access first.</p>
+          <p class="muted text-sm mt-1">Waitlist goes live before the public store opens.</p>
+        </div>
+      </div>
+
+      <div class="mt-14 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="/" class="inline-flex items-center gap-2 rounded-full border rule px-6 py-3 font-medium hover:text-[color:var(--color-amber)] transition">
+          Back to home
+        </a>
+        <a href="/about" class="inline-flex items-center gap-2 rounded-full bg-[color:var(--color-amber)] text-[color:var(--color-ink)] px-6 py-3 font-medium hover:bg-[color:var(--color-amber-dark)] hover:text-[color:var(--color-cream)] transition">
+          Read our story
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="mt-16">
+        <p class="text-xs uppercase tracking-[0.25em] muted">Share the meridian</p>
+        <div class="mt-4 flex items-center justify-center gap-4 text-sm">
+          <a
+            href={`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="rule border rounded-full px-4 py-2 hover:text-[color:var(--color-amber)] transition"
+          >
+            Share on X
+          </a>
+          <a
+            href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="rule border rounded-full px-4 py-2 hover:text-[color:var(--color-amber)] transition"
+          >
+            Share on Facebook
+          </a>
+          <a
+            href="mailto:?subject=Meridian%20Coffee%20waitlist&body=I%20just%20joined%20the%20Meridian%20coffee%20waitlist.%20Specialty%20single-origin%2C%20coming%20soon."
+            class="rule border rounded-full px-4 py-2 hover:text-[color:var(--color-amber)] transition"
+          >
+            Email a friend
+          </a>
+        </div>
+      </div>
+
+      <p class="mt-20 font-display italic muted text-sm">— Meridian Coffee Co. · Latitude 0° · Origin everywhere.</p>
+    </div>
+  </section>
+
+</Base>

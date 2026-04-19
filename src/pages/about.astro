@@ -1,0 +1,131 @@
+---
+import Base from '../layouts/Base.astro';
+
+const siteUrl = Astro.site?.toString() || 'https://meridian-ax7k.vercel.app';
+
+const orgLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Meridian',
+  url: siteUrl,
+  logo: `${siteUrl}favicon.svg`,
+  description: 'Craft coffee roaster brand built on traceable single-origin beans and small-batch roasting.',
+  foundingDate: '2025',
+  slogan: 'Coffee at the crossroads of craft and origin.',
+};
+
+const aboutLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'Our Story | Meridian Specialty Coffee',
+  url: `${siteUrl}about`,
+  description: 'The story behind Meridian — why we roast, where we source, and what we believe a specialty coffee brand should stand for.',
+  mainEntity: {
+    '@type': 'Organization',
+    name: 'Meridian',
+  },
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl },
+    { '@type': 'ListItem', position: 2, name: 'Our Story', item: `${siteUrl}about` },
+  ],
+};
+---
+
+<Base
+  title="Our Story | Meridian Specialty Coffee"
+  description="Meridian was built on a simple belief: great coffee deserves to know where it came from. Read our story and join us at the crossroads."
+  ogType="article"
+  structuredData={[orgLd, aboutLd, breadcrumbLd]}
+>
+
+  <article class="relative">
+    <section class="mx-auto max-w-4xl px-6 lg:px-10 pt-16 lg:pt-24 pb-12">
+      <p class="marker text-xs tracking-[0.25em] uppercase muted">Our Story</p>
+      <h1 class="font-display text-5xl lg:text-7xl leading-[1.02] tracking-tight mt-6">
+        The story behind
+        <span class="italic text-[color:var(--color-amber)]">Meridian</span> coffee.
+      </h1>
+      <p class="mt-8 text-xl leading-relaxed max-w-2xl muted">
+        Meridian began — as most worthwhile things do — with a complaint. Two friends, a too-many-years coffee obsession, and the feeling that most "specialty" coffee on the shelf told you everything about the roaster and almost nothing about the farm.
+      </p>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-6 lg:px-10">
+      <div class="aspect-[16/9] overflow-hidden rounded-2xl rule border">
+        <img
+          src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1800&q=80"
+          alt="A small roasting drum in an editorial craft coffee roaster workshop, warm window light across bags of green beans"
+          class="w-full h-full object-cover"
+          loading="eager"
+        />
+      </div>
+      <p class="text-xs tracking-[0.2em] uppercase muted mt-3">The roasting bench, morning light · No. 12 sample lot</p>
+    </section>
+
+    <section class="mx-auto max-w-3xl px-6 lg:px-10 py-16 lg:py-24">
+      <div class="space-y-8 text-lg leading-[1.75]">
+        <p>
+          We've spent a decade between us visiting farms, cupping until our palates frayed, writing profiles into notebooks we lost and rewrote, and asking one uncomfortable question: <em>who grew this?</em> Not as branding. As a fact a craft coffee roaser brand story ought to carry on every bag.
+        </p>
+
+        <h2 class="font-display text-3xl lg:text-4xl mt-12 tracking-tight">A brand built around a single conviction</h2>
+        <p>
+          Meridian is a specialty coffee brand — but the word "specialty" has been diluted to the point of silliness. For us, it means one thing: a cup you could point to a map for. A Meridian bag names the grower, the lot, the altitude, and what we paid. Transparent premiums, published openly, because the person who walked the cherries from the tree deserves at least that much.
+        </p>
+
+        <blockquote class="border-l-2 pl-6 rule my-12">
+          <p class="font-display italic text-2xl lg:text-3xl leading-snug">
+            "We're not inventing anything. We're just refusing to forget whose hands were on the fruit before it reached ours."
+          </p>
+          <footer class="mt-3 text-sm muted">— From our first internal doc, written in a café on a rainy Tuesday.</footer>
+        </blockquote>
+
+        <h2 class="font-display text-3xl lg:text-4xl mt-12 tracking-tight">Origin first, roast second</h2>
+        <p>
+          Most roasters start with a house style and bend every origin to fit it. We start the other way around: we cup the green, argue about it, run three profiles, and the bean tells us what it wants to be. Some lots want a gentler first crack. Some want more development time. The goal is never to show off Meridian's opinion; the goal is to make the farm audible in the cup.
+        </p>
+        <p>
+          That's why our inaugural roster is only three lots. A Yirgacheffe that tastes of jasmine and bergamot. A Huila that unfolds like red apple and cocoa nib. A Nyeri with that electric blackcurrant bite you only get from fine Kenyan washed coffees. We could have launched with nine. Three is honest.
+        </p>
+
+        <h2 class="font-display text-3xl lg:text-4xl mt-12 tracking-tight">The ritual — our favourite part</h2>
+        <p>
+          There's a reason we called it Meridian. A meridian is the moment the sun is highest — but in the old sense, it's also the line at which a day pauses before tilting toward evening. That pause is the whole point. Good coffee is a reason to slow down, boil water with intent, grind on purpose, and drink before the inbox opens. We make the coffee; the ritual is yours.
+        </p>
+
+        <h2 class="font-display text-3xl lg:text-4xl mt-12 tracking-tight">What "coming soon" actually means</h2>
+        <p>
+          We're a few weeks from launch. Green is in transit, the roaster is calibrated, bag art is at the printers, and the cupping table is full of little glass jars with masking-tape labels. The first 200 bags will ship to waitlist members. If you want to be on that list, there's a single field on the <a href="/" class="underline decoration-[color:var(--color-amber)] underline-offset-4 hover:text-[color:var(--color-amber)] transition">homepage</a> waiting for you.
+        </p>
+
+        <p>
+          Between now and launch, we're quietly filling the pantry with notes, photographs from origin, and the occasional confession from the roaster. Those will arrive in waitlist inboxes first. You can see the <a href="/thanks" class="underline decoration-[color:var(--color-amber)] underline-offset-4 hover:text-[color:var(--color-amber)] transition">confirmation</a> we send when you join — it's short, warm, and spam-free.
+        </p>
+
+        <p class="font-display italic text-xl text-[color:var(--color-amber)] pt-8 border-t rule">
+          Thank you for standing with a small craft coffee roaster brand story that's barely written yet. We'll do our best to earn the pour.
+        </p>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-5xl px-6 lg:px-10 pb-24 lg:pb-32">
+      <div class="surface rule border rounded-2xl p-10 lg:p-14 text-center">
+        <p class="marker text-xs tracking-[0.25em] uppercase muted justify-center">Ready?</p>
+        <h2 class="font-display text-3xl lg:text-5xl leading-tight mt-4">
+          Reserve your spot at the crossroads.
+        </h2>
+        <p class="mt-4 muted max-w-xl mx-auto">Join the waitlist and be first to taste Meridian. One email before launch. No spam, ever.</p>
+        <a href="/#waitlist" class="mt-8 inline-flex items-center gap-2 rounded-full bg-[color:var(--color-amber)] text-[color:var(--color-ink)] px-6 py-3 font-medium hover:bg-[color:var(--color-amber-dark)] hover:text-[color:var(--color-cream)] transition">
+          Join the waitlist
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+  </article>
+
+</Base>
