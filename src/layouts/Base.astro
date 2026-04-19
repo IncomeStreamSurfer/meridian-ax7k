@@ -1,0 +1,127 @@
+---
+import '../styles/global.css';
+import SEOHead from '../components/SEOHead.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  ogType?: string;
+  canonicalUrl?: string;
+  structuredData?: object | object[];
+  noindex?: boolean;
+}
+
+const { title, description, ogImage, ogType, canonicalUrl, structuredData, noindex } = Astro.props;
+---
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <SEOHead
+      title={title}
+      description={description}
+      ogImage={ogImage}
+      ogType={ogType}
+      canonicalUrl={canonicalUrl}
+      structuredData={structuredData}
+      noindex={noindex}
+    />
+    <script is:inline>
+      (function () {
+        try {
+          const saved = localStorage.getItem('meridian-theme');
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const mode = saved || (prefersDark ? 'dark' : 'light');
+          document.documentElement.classList.toggle('dark', mode === 'dark');
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen antialiased">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:bg-[color:var(--color-amber)] focus:text-[color:var(--color-ink)] focus:px-4 focus:py-2 focus:rounded">Skip to content</a>
+
+    <header class="relative z-40">
+      <nav class="mx-auto max-w-7xl px-6 lg:px-10 py-6 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2 group">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+            <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1"/>
+            <path d="M1 14 L27 14" stroke="currentColor" stroke-width="1"/>
+            <path d="M14 1 L14 27" stroke="currentColor" stroke-width="1" stroke-dasharray="2 3"/>
+          </svg>
+          <span class="font-display text-xl tracking-tight">Meridian</span>
+        </a>
+        <div class="hidden md:flex items-center gap-8 text-sm">
+          <a href="/" class="hover:text-[color:var(--color-amber)] transition">Home</a>
+          <a href="/#story" class="hover:text-[color:var(--color-amber)] transition">Story</a>
+          <a href="/about" class="hover:text-[color:var(--color-amber)] transition">About</a>
+          <a href="/#waitlist" class="hover:text-[color:var(--color-amber)] transition">Waitlist</a>
+        </div>
+        <div class="flex items-center gap-3">
+          <button id="theme-toggle" aria-label="Toggle theme" class="rule border rounded-full w-9 h-9 grid place-items-center hover:text-[color:var(--color-amber)] transition">
+            <svg class="hidden dark:block" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            <svg class="block dark:hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+          <a href="/#waitlist" class="hidden sm:inline-flex items-center gap-2 text-sm rounded-full bg-[color:var(--color-amber)] text-[color:var(--color-ink)] px-4 py-2 font-medium hover:bg-[color:var(--color-amber-dark)] hover:text-[color:var(--color-cream)] transition">
+            Join waitlist
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="border-t rule mt-24">
+      <div class="mx-auto max-w-7xl px-6 lg:px-10 py-12 grid gap-8 md:grid-cols-3 text-sm">
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <svg width="22" height="22" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+              <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1"/>
+              <path d="M1 14 L27 14" stroke="currentColor" stroke-width="1"/>
+              <path d="M14 1 L14 27" stroke="currentColor" stroke-width="1" stroke-dasharray="2 3"/>
+            </svg>
+            <span class="font-display text-lg">Meridian</span>
+          </div>
+          <p class="muted max-w-xs">Coffee at the crossroads of craft and origin. A specialty roaster arriving soon.</p>
+        </div>
+        <div>
+          <p class="uppercase text-xs tracking-[0.2em] muted mb-3">Explore</p>
+          <ul class="space-y-2">
+            <li><a href="/" class="hover:text-[color:var(--color-amber)] transition">Home</a></li>
+            <li><a href="/about" class="hover:text-[color:var(--color-amber)] transition">Our story</a></li>
+            <li><a href="/#waitlist" class="hover:text-[color:var(--color-amber)] transition">Join the waitlist</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="uppercase text-xs tracking-[0.2em] muted mb-3">Follow</p>
+          <ul class="space-y-2">
+            <li><a href="#" class="hover:text-[color:var(--color-amber)] transition">Instagram</a></li>
+            <li><a href="#" class="hover:text-[color:var(--color-amber)] transition">Newsletter</a></li>
+            <li><a href="mailto:hello@meridian.coffee" class="hover:text-[color:var(--color-amber)] transition">hello@meridian.coffee</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t rule">
+        <div class="mx-auto max-w-7xl px-6 lg:px-10 py-6 flex flex-col md:flex-row items-center justify-between text-xs muted gap-3">
+          <p>© {new Date().getFullYear()} Meridian Coffee Co. All rights reserved.</p>
+          <p class="font-display italic">Latitude 0° · Longitude 0° · Origin everywhere.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script is:inline>
+      (function () {
+        const btn = document.getElementById('theme-toggle');
+        if (!btn) return;
+        btn.addEventListener('click', () => {
+          const html = document.documentElement;
+          const next = html.classList.contains('dark') ? 'light' : 'dark';
+          html.classList.toggle('dark', next === 'dark');
+          try { localStorage.setItem('meridian-theme', next); } catch (e) {}
+        });
+      })();
+    </script>
+  </body>
+</html>
