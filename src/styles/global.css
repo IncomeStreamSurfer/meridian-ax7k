@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0e0c0a;
+  --color-ink-soft: #1a1714;
+  --color-cream: #f5efe6;
+  --color-cream-soft: #ebe2d3;
+  --color-paper: #faf6ef;
+  --color-amber: #c67b3c;
+  --color-amber-dark: #9f5e27;
+  --color-muted: #746b5e;
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+.font-display { font-family: var(--font-display); }
+
+/* Dark / Light via class on <html> */
+html.dark body { background: var(--color-ink); color: var(--color-cream); }
+html.dark .surface { background: var(--color-ink-soft); }
+html.dark .rule { border-color: rgba(245,239,230,0.12); }
+html.dark .muted { color: #9a8f7f; }
+
+html:not(.dark) .surface { background: var(--color-cream-soft); }
+html:not(.dark) .rule { border-color: rgba(14,12,10,0.12); }
+html:not(.dark) .muted { color: var(--color-muted); }
+
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+.grain::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.12 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  z-index: -1;
+}
+
+.ticker {
+  animation: ticker 40s linear infinite;
+}
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marker::before {
+  content: "";
+  display: inline-block;
+  width: 1.25rem;
+  height: 1px;
+  background: currentColor;
+  vertical-align: middle;
+  margin-right: 0.6rem;
+  opacity: 0.6;
+}
