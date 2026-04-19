@@ -1,0 +1,89 @@
+---
+// Client-side waitlist capture wired to /api/waitlist
+---
+<section id="waitlist" class="relative overflow-hidden">
+  <div class="mx-auto max-w-4xl px-6 lg:px-10 py-24 lg:py-32 text-center">
+    <p class="marker text-xs tracking-[0.25em] uppercase muted justify-center">Join the waitlist</p>
+    <h2 class="font-display text-4xl lg:text-6xl leading-[1.02] tracking-tight mt-4">
+      Be first to taste what we've
+      <span class="italic text-[color:var(--color-amber)]">been building.</span>
+    </h2>
+    <p class="mt-6 max-w-xl mx-auto muted text-lg leading-relaxed">
+      Early access to our inaugural lots, tasting notes from our roaster, and a note when the first bag ships. No spam. Unsubscribe anytime.
+    </p>
+
+    <form id="waitlist-form" class="mt-10 max-w-md mx-auto" novalidate>
+      <label for="email" class="sr-only">Email address</label>
+      <div class="flex flex-col sm:flex-row gap-3 rule border rounded-full p-2 surface shadow-lg">
+        <input
+          id="email"
+          name="email"
+          type="email"
+          required
+          autocomplete="email"
+          inputmode="email"
+          placeholder="you@yourmorning.com"
+          class="flex-1 bg-transparent px-4 py-3 outline-none placeholder:opacity-50"
+        />
+        <input type="text" name="company" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+        <button
+          type="submit"
+          class="inline-flex items-center justify-center gap-2 rounded-full bg-[color:var(--color-amber)] text-[color:var(--color-ink)] px-6 py-3 font-medium hover:bg-[color:var(--color-amber-dark)] hover:text-[color:var(--color-cream)] transition disabled:opacity-70 disabled:cursor-wait"
+        >
+          <span data-label>Reserve my spot</span>
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+      <p id="waitlist-msg" class="mt-4 text-sm min-h-[1.25rem]" role="status" aria-live="polite"></p>
+    </form>
+
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs uppercase tracking-[0.2em] muted">
+      <span>No spam, ever</span>
+      <span aria-hidden="true">·</span>
+      <span>One email before launch</span>
+      <span aria-hidden="true">·</span>
+      <span>Unsubscribe anytime</span>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    const form = document.getElementById('waitlist-form');
+    if (!form) return;
+    const msg = document.getElementById('waitlist-msg');
+    const btn = form.querySelector('button[type=submit]');
+    const label = btn?.querySelector('[data-label]');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const email = String(data.get('email') || '').trim();
+      const company = String(data.get('company') || '').trim(); // honeypot
+      if (company) return; // bot
+      if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+        msg.textContent = 'Please enter a valid email address.';
+        msg.style.color = '#c67b3c';
+        return;
+      }
+      btn.disabled = true;
+      if (label) label.textContent = 'Saving a seat…';
+      msg.textContent = '';
+      try {
+        const res = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, source: 'homepage', referrer: document.referrer || null }),
+        });
+        const json = await res.json();
+        if (!res.ok || !json.ok) throw new Error(json.error || 'Something went wrong');
+        window.location.href = '/thanks';
+      } catch (err) {
+        msg.textContent = err && err.message ? err.message : 'Something went wrong. Please try again.';
+        msg.style.color = '#c67b3c';
+        btn.disabled = false;
+        if (label) label.textContent = 'Reserve my spot';
+      }
+    });
+  })();
+</script>

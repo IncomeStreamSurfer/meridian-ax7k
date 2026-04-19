@@ -1,0 +1,71 @@
+---
+// The three-lot preview — what's opening the roster at launch
+const lots = [
+  {
+    n: 'N° 001',
+    name: 'Yirgacheffe · Konga',
+    origin: 'Ethiopia',
+    altitude: '1,950 m',
+    process: 'Natural',
+    notes: 'Jasmine, bergamot, stone-fruit, honey',
+    img: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=900&q=80',
+  },
+  {
+    n: 'N° 002',
+    name: 'Huila · El Paraíso',
+    origin: 'Colombia',
+    altitude: '1,700 m',
+    process: 'Washed',
+    notes: 'Red apple, cocoa nib, brown sugar, almond',
+    img: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80',
+  },
+  {
+    n: 'N° 003',
+    name: 'Nyeri · Tegu',
+    origin: 'Kenya',
+    altitude: '1,820 m',
+    process: 'Washed',
+    notes: 'Blackcurrant, tomato leaf, cane sugar, citrus peel',
+    img: 'https://images.unsplash.com/photo-1442975631115-c4f7b05b6107?auto=format&fit=crop&w=900&q=80',
+  },
+];
+---
+<section class="mx-auto max-w-7xl px-6 lg:px-10 py-24 lg:py-32 border-b rule">
+  <div class="flex items-end justify-between flex-wrap gap-4 mb-12">
+    <div>
+      <p class="marker text-xs tracking-[0.25em] uppercase muted">Opening roster</p>
+      <h2 class="font-display text-4xl lg:text-5xl leading-tight tracking-tight mt-4 max-w-2xl">
+        The first three lots on the bench.
+      </h2>
+    </div>
+    <p class="max-w-sm muted">A preview of what's roasting. Tasting notes are ours after a week of cupping. Yours may read differently — that's the point.</p>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-6">
+    {lots.map((lot) => (
+      <article class="surface rule border rounded-xl overflow-hidden flex flex-col">
+        <div class="aspect-[5/4] overflow-hidden">
+          <img src={lot.img} alt={`${lot.name} — ${lot.origin} specialty coffee from Meridian`} loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.03]" />
+        </div>
+        <div class="p-6 flex flex-col gap-4 flex-1">
+          <div class="flex items-center justify-between text-xs uppercase tracking-[0.2em] muted">
+            <span>{lot.n}</span>
+            <span>{lot.origin}</span>
+          </div>
+          <h3 class="font-display text-2xl leading-tight">{lot.name}</h3>
+          <p class="italic text-[color:var(--color-amber)] text-sm">{lot.notes}</p>
+          <dl class="mt-auto grid grid-cols-2 gap-3 text-xs pt-4 border-t rule">
+            <div>
+              <dt class="muted uppercase tracking-[0.2em] text-[10px]">Altitude</dt>
+              <dd class="font-medium mt-1">{lot.altitude}</dd>
+            </div>
+            <div>
+              <dt class="muted uppercase tracking-[0.2em] text-[10px]">Process</dt>
+              <dd class="font-medium mt-1">{lot.process}</dd>
+            </div>
+          </dl>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
